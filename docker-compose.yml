@@ -5,7 +5,6 @@ networks:
 volumes:
   caddy_data:
   caddy_config:
-  rclone_media:
   cinesync_db:
   cinesync_media:
   jellyfin_config:
@@ -67,7 +66,11 @@ services:
       - RCLONE_CONFIG_ZURG_URL=http://zurg:9999
       - RCLONE_CONFIG_ZURG_VENDOR=other
     volumes:
-      - rclone_media:/media:rshared
+      - type: bind
+        source: /mnt/media
+        target: /media
+        bind:
+          propagation: rshared
     depends_on:
       - zurg
     networks:
@@ -87,7 +90,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - rclone_media:/mnt/zurg:ro
+      - /mnt/media:/mnt/zurg:ro
       - cinesync_media:/mnt/media
       - cinesync_db:/app/db
     ports:
@@ -108,7 +111,7 @@ services:
       - JELLYFIN_PublishedServerUrl=https://jellyfin.huang67.com
     volumes:
       - jellyfin_config:/config
-      - rclone_media:/mnt/zurg:ro
+      - /mnt/media:/mnt/zurg:ro
       - cinesync_media:/media:ro
     depends_on:
       - rclone
