@@ -8,6 +8,10 @@ volumes:
   rclone_media:
   cinesync_db:
   jellyfin_config:
+  jellyseerr_config:
+  seerrbridge_data:
+  seerrbridge_mysql:
+  seerrbridge_logs:
 
 services:
   caddy:
@@ -106,5 +110,53 @@ services:
       - rclone_media:/mnt/zurg:ro
     depends_on:
       - rclone
+    networks:
+      - medianet
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    ports:
+      - "127.0.0.1:5055:5055"
+    volumes:
+      - jellyseerr_config:/app/config
+    depends_on:
+      - jellyfin
+    networks:
+      - medianet
+
+  seerrbridge:
+    image: ghcr.io/woahai321/seerrbridge:latest
+    container_name: seerrbridge
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - NODE_ENV=production
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=3777
+      - DB_HOST=localhost
+      - DB_PORT=3306
+      - DB_NAME=seerrbridge
+      - DB_USER=seerrbridge
+      - DB_PASSWORD=seerrbridge
+      - MYSQL_ROOT_PASSWORD=seerrbridge_root
+      - USE_DATABASE=true
+      - SEERRBRIDGE_URL=http://localhost:8777
+      - SETUP_API_URL=http://localhost:8778
+      - SEERRBRIDGE_SETUP_URL=http://localhost:8778
+    ports:
+      - "127.0.0.1:3777:3777"
+      - "127.0.0.1:8777:8777"
+      - "127.0.0.1:8778:8778"
+    volumes:
+      - seerrbridge_mysql:/var/lib/mysql
+      - seerrbridge_logs:/app/logs
+      - seerrbridge_data:/app/data
+    depends_on:
+      - jellyseerr
     networks:
       - medianet
