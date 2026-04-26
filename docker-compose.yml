@@ -6,6 +6,8 @@ volumes:
   caddy_data:
   caddy_config:
   rclone_media:
+  cinesync_db:
+  jellyfin_config:
 
 services:
   caddy:
@@ -63,5 +65,46 @@ services:
       - rclone_media:/media:rshared
     depends_on:
       - zurg
+    networks:
+      - medianet
+
+  cinesync:
+    image: sureshfizzy/cinesync:latest
+    container_name: cinesync
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse
+    security_opt:
+      - apparmor:unconfined
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - rclone_media:/mnt/zurg:ro
+      - rclone_media:/mnt/media:rshared
+      - cinesync_db:/app/db
+    ports:
+      - "127.0.0.1:8082:8082"
+    depends_on:
+      - rclone
+    networks:
+      - medianet
+
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    user: "1000:1000"
+    ports:
+      - "127.0.0.1:8096:8096"
+    environment:
+      - JELLYFIN_PublishedServerUrl=https://jellyfin.huang67.com
+    volumes:
+      - jellyfin_config:/config
+      - rclone_media:/mnt/zurg:ro
+    depends_on:
+      - rclone
     networks:
       - medianet
