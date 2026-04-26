@@ -36,7 +36,7 @@ Idempotent bash script, run as root on a fresh Debian 13 instance. Steps:
 2. Create `media` user (UID/GID 1000), create `jason` user with sudo
 3. Install Docker Engine + Compose plugin via official Docker apt repository
 4. Install Tailscale via official apt repository
-5. Authenticate Tailscale using `TS_AUTHKEY`, enable Tailscale SSH, set hostname `media01`
+5. Authenticate Tailscale using auth key passed as CLI argument (`./provision.sh --ts-authkey <key>`), enable Tailscale SSH, set hostname `media01`
 6. Configure ufw: allow 80/443 from anywhere, allow all from `tailscale0`, enable ufw
 7. Install `fuse3` package, ensure `/dev/fuse` is available
 8. Clone repo to `/opt/media-server/`, set ownership to `media:media`
@@ -191,8 +191,7 @@ CLOUDFLARE_API_TOKEN=
 POCKETID_CLIENT_ID=
 POCKETID_CLIENT_SECRET=
 
-# Tailscale (used by provision.sh only)
-TS_AUTHKEY=
+# Tailscale auth key is passed inline to provision.sh, not stored here
 ```
 
 `.env` is git-ignored. `.env.example` is committed with empty values.
