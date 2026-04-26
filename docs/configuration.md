@@ -51,8 +51,9 @@ Access the admin UI at `http://media01:8096` via Tailscale for initial setup.
    - OID Client Secret: your client secret from PocketID
 
 **Library Setup:**
-- Add a Movies library pointing to `/mnt/zurg`
-- Add a TV Shows library pointing to `/mnt/zurg`
+- Add a Movies library pointing to `/media/movies` (CineSync organized output)
+- Add a TV Shows library pointing to `/media/tv` (CineSync organized output)
+- Alternatively, add a library pointing to `/mnt/zurg` to browse raw RealDebrid content directly
 
 ### Jellyseerr
 

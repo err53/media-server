@@ -7,6 +7,7 @@ volumes:
   caddy_config:
   rclone_media:
   cinesync_db:
+  cinesync_media:
   jellyfin_config:
   jellyseerr_config:
   seerrbridge_data:
@@ -87,7 +88,7 @@ services:
       - PGID=1000
     volumes:
       - rclone_media:/mnt/zurg:ro
-      - rclone_media:/mnt/media:rshared
+      - cinesync_media:/mnt/media
       - cinesync_db:/app/db
     ports:
       - "127.0.0.1:8082:8082"
@@ -108,6 +109,7 @@ services:
     volumes:
       - jellyfin_config:/config
       - rclone_media:/mnt/zurg:ro
+      - cinesync_media:/media:ro
     depends_on:
       - rclone
     networks:
