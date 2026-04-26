@@ -94,7 +94,7 @@ services:
       - cinesync_media:/mnt/media
       - cinesync_db:/app/db
     ports:
-      - "127.0.0.1:8082:8082"
+      - "8082:8082"
     depends_on:
       - rclone
     networks:
@@ -154,9 +154,9 @@ services:
       - SETUP_API_URL=http://localhost:8778
       - SEERRBRIDGE_SETUP_URL=http://localhost:8778
     ports:
-      - "127.0.0.1:3777:3777"
-      - "127.0.0.1:8777:8777"
-      - "127.0.0.1:8778:8778"
+      - "3777:3777"
+      - "8777:8777"
+      - "8778:8778"
     volumes:
       - seerrbridge_mysql:/var/lib/mysql
       - seerrbridge_logs:/app/logs
