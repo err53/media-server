@@ -39,12 +39,11 @@ fi
 echo "=== Provisioning media01 ==="
 
 # --- 1. System basics ---
-echo "[1/10] Updating system packages..."
+echo "[1/10] System setup..."
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq
 apt-get upgrade -y -qq
 
-echo "[1/10] Setting hostname and timezone..."
 hostnamectl set-hostname media01
 timedatectl set-timezone UTC
 
