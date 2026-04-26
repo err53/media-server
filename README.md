@@ -47,6 +47,14 @@ cd /opt/media-server
 nano .env    # fill in RD_API_TOKEN and CLOUDFLARE_API_TOKEN
 ```
 
+### 2.5. Generate Zurg config
+
+Zurg doesn't support env var substitution in its config file, so generate it from the template after filling in `.env`:
+
+```bash
+source .env && envsubst < zurg.yaml.tpl > zurg.yaml
+```
+
 ### 3. Start the stack
 
 ```bash

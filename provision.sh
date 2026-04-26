@@ -43,6 +43,7 @@ echo "[1/10] System setup..."
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq
 apt-get upgrade -y -qq
+apt-get install -y -qq gettext-base
 
 hostnamectl set-hostname media01
 timedatectl set-timezone UTC
@@ -146,10 +147,14 @@ echo ""
 echo "=== Provisioning complete ==="
 echo ""
 echo "Next steps:"
-echo "  1. Edit $INSTALL_DIR/.env with your secrets"
-echo "  2. cd $INSTALL_DIR && sudo -u media docker compose up -d"
-echo "  3. Access Jellyfin at http://media01:8096 (via Tailscale)"
-echo "  4. Access Jellyseerr at http://media01:5055 (via Tailscale)"
-echo "  5. Set up Cloudflare DNS records:"
+echo "  1. Edit $INSTALL_DIR/.env with your secrets:"
+echo "       nano $INSTALL_DIR/.env"
+echo "  2. Generate Zurg config from template:"
+echo "       cd $INSTALL_DIR && source .env && envsubst < zurg.yaml.tpl > zurg.yaml"
+echo "  3. Start the stack:"
+echo "       sudo -u media docker compose up -d"
+echo "  4. Access Jellyfin at http://media01:8096 (via Tailscale)"
+echo "  5. Access Jellyseerr at http://media01:5055 (via Tailscale)"
+echo "  6. Set up Cloudflare DNS records:"
 echo "     - jellyfin.huang67.com -> SERVER_IP (DNS-only)"
 echo "     - requests.huang67.com -> SERVER_IP (Proxied)"
