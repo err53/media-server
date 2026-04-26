@@ -52,7 +52,7 @@ nano .env    # fill in RD_API_TOKEN and CLOUDFLARE_API_TOKEN
 Zurg doesn't support env var substitution in its config file, so generate it from the template after filling in `.env`:
 
 ```bash
-source .env && envsubst < zurg.yaml.tpl > zurg.yaml
+set -a && source .env && set +a && envsubst < zurg.yaml.tpl > zurg.yaml
 ```
 
 ### 3. Start the stack
