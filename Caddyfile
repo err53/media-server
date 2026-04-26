@@ -1,0 +1,12 @@
+{
+	acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+}
+
+jellyfin.huang67.com {
+	reverse_proxy jellyfin:8096
+}
+
+requests.huang67.com {
+	reverse_proxy jellyseerr:5055
+	request_header X-Real-IP {header.CF-Connecting-IP}
+}
