@@ -187,11 +187,8 @@ RD_API_TOKEN=
 # Cloudflare (for Caddy DNS challenge)
 CLOUDFLARE_API_TOKEN=
 
-# PocketID OIDC (for manual UI configuration reference)
-POCKETID_CLIENT_ID=
-POCKETID_CLIENT_SECRET=
-
 # Tailscale auth key is passed inline to provision.sh, not stored here
+# PocketID OIDC credentials are configured directly in the Jellyfin/Jellyseerr UIs, not here
 ```
 
 `.env` is git-ignored. `.env.example` is committed with empty values.

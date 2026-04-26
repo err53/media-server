@@ -62,11 +62,6 @@ RD_API_TOKEN=
 
 # Cloudflare API token — needs Zone:DNS:Edit permission for huang67.com
 CLOUDFLARE_API_TOKEN=
-
-# PocketID OIDC credentials — create clients at https://idm.huang-auth.com
-# (used for manual UI configuration in Jellyfin and Jellyseerr)
-POCKETID_CLIENT_ID=
-POCKETID_CLIENT_SECRET=
 ```
 
 - [ ] **Step 3: Commit**
@@ -616,15 +611,6 @@ chmod 600 .env
 |----------|----------------|---------|
 | `RD_API_TOKEN` | [real-debrid.com/apitoken](https://real-debrid.com/apitoken) | Zurg |
 | `CLOUDFLARE_API_TOKEN` | Cloudflare dashboard > API Tokens > Create Token > Zone:DNS:Edit for `huang67.com` | Caddy |
-
-### Optional Variables (reference only)
-
-These are configured through the service UIs, not Docker env vars:
-
-| Variable | Purpose |
-|----------|---------|
-| `POCKETID_CLIENT_ID` | OIDC client ID from PocketID at `idm.huang-auth.com` |
-| `POCKETID_CLIENT_SECRET` | OIDC client secret from PocketID |
 
 ## Service Configuration
 
