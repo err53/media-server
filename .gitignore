@@ -1,0 +1,17 @@
+# Secrets
+.env
+
+# Logs
+logs/
+*.log
+
+# Data directories
+data/
+db/
+
+# Git worktrees
+.worktrees/
+
+# OS
+.DS_Store
+Thumbs.db
